@@ -1,0 +1,61 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
+
+def atualizar_qualidades(event):
+    """Função que muda as opções de qualidade dependendo do tipo selecionado"""
+    if variavel_tipo.get() == "Apenas Áudio (MP3)":
+        # Se for MP3, muda a lista para qualidades de áudio e define um padrão
+        dropdown_qualidade['values'] = ["320kbps (Alta)", "192kbps (Média)", "128kbps (Baixa)"]
+        variavel_qualidade.set("320kbps (Alta)")
+    else:
+        # Se voltar para Vídeo, restaura as resoluções
+        dropdown_qualidade['values'] = ["1080p", "720p", "480p", "360p"]
+        variavel_qualidade.set("1080p")
+
+def iniciar_download():
+    link = input_link.get()
+    tipo = variavel_tipo.get()
+    qualidade = variavel_qualidade.get()
+    
+    if not link.strip():
+        messagebox.showwarning("Aviso", "Por favor, insira um link válido!")
+        return
+    
+    messagebox.showinfo("Sucesso", f"Baixando em formato {tipo} com qualidade {qualidade}!")
+
+# --- Configuração da Janela ---
+root = tk.Tk()
+root.title("PyMediaDownloader")
+root.geometry("400x350")
+root.resizable(False, False)
+
+# Título
+tk.Label(root, text="PyMediaDownloader", font=("Arial", 16, "bold"), pady=10).pack()
+
+# Link
+tk.Label(root, text="Link:", font=("Arial", 10, "bold")).pack(anchor="w", padx=20, pady=(10, 0))
+input_link = tk.Entry(root, width=45, font=("Arial", 10))
+input_link.pack(padx=20, pady=5)
+
+# Tipo
+tk.Label(root, text="Tipo:", font=("Arial", 10, "bold")).pack(anchor="w", padx=20, pady=(10, 0))
+variavel_tipo = tk.StringVar(value="Vídeo")
+dropdown_tipo = ttk.Combobox(root, textvariable=variavel_tipo, values=["Vídeo", "Apenas Áudio (MP3)"], state="readonly", width=42)
+dropdown_tipo.pack(padx=20, pady=5)
+
+# O TRUQUE: Vincula a mudança do dropdown à função 'atualizar_qualidades'
+dropdown_tipo.bind("<<ComboboxSelected>>", atualizar_qualidades)
+
+# Qualidade
+tk.Label(root, text="Qualidade:", font=("Arial", 10, "bold")).pack(anchor="w", padx=20, pady=(10, 0))
+variavel_qualidade = tk.StringVar(value="1080p")
+dropdown_qualidade = ttk.Combobox(root, textvariable=variavel_qualidade, values=["1080p", "720p", "480p", "360p"], state="readonly", width=42)
+dropdown_qualidade.pack(padx=20, pady=5)
+
+tk.Label(root, text="").pack(pady=5)
+
+# Botão
+botao_baixar = tk.Button(root, text="Baixar", font=("Arial", 11, "bold"), bg="#4CAF50", fg="white", width=15, command=iniciar_download)
+botao_baixar.pack(pady=10)
+
+root.mainloop()
