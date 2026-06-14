@@ -58,4 +58,4 @@ Este projeto foi desenvolvido para fins educacionais. O usuário é responsável
 
 ## Autor
 
-Desenvolvido por Guilherme (Guiboom71).
+Desenvolvido por Guilherme (Guiboom).
