@@ -14,7 +14,7 @@ O projeto utiliza ferramentas amplamente conhecidas para realizar o download de 
 * Download apenas do áudio
 * Interface gráfica simples e intuitiva
 * Exibição do progresso do download
-* Seleção de formato de mídia
+* Seleção de formato e qualidade da mídia
 
 ## Tecnologias Utilizadas
 
