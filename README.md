@@ -21,7 +21,6 @@ O projeto utiliza ferramentas amplamente conhecidas para realizar o download de 
 * Python
 * Interface gráfica (GUI)
 * yt-dlp
-* Outras bibliotecas auxiliares do Python
 
 ## Objetivos de Aprendizado
 
@@ -38,19 +37,19 @@ Durante o desenvolvimento deste projeto pratiquei:
 1. Clone este repositório:
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/Guiboom/PyDownloader.git
 ```
 
 2. Instale as dependências necessárias:
 
 ```bash
-pip install -r requirements.txt
+pip install yt-dlp
 ```
 
 3. Execute o programa:
 
 ```bash
-python main.py
+main.py
 ```
 
 ## Aviso Legal
