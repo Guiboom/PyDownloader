@@ -1,4 +1,3 @@
-markdown
 # PyMediaDownloader
 
 Aplicativo prático para download de vídeos e áudios, com interface gráfica desenvolvida inteiramente em Python.
@@ -15,52 +14,76 @@ O projeto utiliza o poderoso `yt-dlp` no backend para realizar os downloads, ofe
 
 ## ⚙️ Funcionalidades
 
-- Download de vídeos (MP4) com resolução de 360p até 1080p  
-- Download de áudios (MP3) com qualidade de 128kbps até 320kbps  
-- Interface gráfica simples e intuitiva (Tkinter)  
-- Status em tempo real (baixando, concluído ou erro)  
-- Execução em segundo plano (sem travar a interface)  
-- Memória de preferências (`config.json` salva automaticamente configurações)  
+* Download de vídeos (MP4) com resolução de 360p até 1080p
+* Download de áudios (MP3) com qualidade de 128kbps até 320kbps
+* Interface gráfica simples e intuitiva (Tkinter)
+* Status em tempo real (baixando, concluído ou erro)
+* Execução em segundo plano (sem travar a interface)
+* Memória de preferências (`config.json` salva automaticamente as configurações)
 
 ---
 
 ## 🧠 Tecnologias Utilizadas
 
-- **Python 3** - **Tkinter** (interface gráfica)  
-- **yt-dlp** (motor de download)  
-- **threading** (execução em segundo plano)  
-- **subprocess** (execução de comandos externos)  
-- **json** (salvar configurações)  
+* Python 3
+* Tkinter (interface gráfica)
+* yt-dlp (motor de download)
+* threading (execução em segundo plano)
+* subprocess (execução de comandos externos)
+* json (salvar configurações)
 
 ---
 
-## 🚀 Como Usar
+## 🚀 Instalação
 
-### 1. Instalar dependência
+### 1. Instalar o Python
 
-pip install yt-dlp
+Abra o PowerShell como administrador e execute:
 
+```bash
+winget install Python.Python.3.12
+```
 
+---
 
-### 2. Rodar o programa
+### 2. Instalar o yt-dlp
 
+Após instalar o Python, execute:
 
+```bash
+python -m pip install -U yt-dlp
+```
+
+---
+
+## ▶️ Executando o Programa
+
+Entre na pasta do projeto e execute:
+
+```bash
 python main.py
+```
 
+---
 
+## 📝 Como Utilizar
 
-### 3. Usar
+1. Cole o link do vídeo ou música.
+2. Escolha o formato:
 
-* Colar link
-* Escolher MP4 ou MP3
-* Escolher qualidade
-* Escolher pasta
-* Clicar em **“Baixar”** ---
+   * MP4 (Vídeo)
+   * MP3 (Áudio)
+3. Escolha a qualidade desejada.
+4. Escolha a pasta onde o arquivo será salvo.
+5. Clique em **Baixar**.
+6. Aguarde a conclusão do download.
 
-## 🖥️ Sistemas suportados
+---
+
+## 🖥️ Sistemas Suportados
 
 * Windows 10 ✔
-* Windows 11 ✔
+* Windows 11 ✔ (testado)
 * Linux ✔
 * macOS ✔
 
@@ -68,19 +91,21 @@ python main.py
 
 ## ⚠️ Observação
 
-O projeto foi testado e funciona apenas com Python e `yt-dlp` instalados.
+O projeto foi testado no Windows 11 e funciona com apenas duas dependências instaladas:
+
+* Python
+* yt-dlp
 
 ---
 
 ## ⚠️ Aviso Legal
 
-O usuário é responsável pelo uso correto do software, respeitando direitos autorais e termos das plataformas. O autor não se responsabiliza por uso indevido, danos ou violação de regras.
+Este projeto foi desenvolvido apenas para fins educacionais.
+
+O usuário é responsável por garantir que o uso do software esteja de acordo com os direitos autorais e os termos das plataformas utilizadas, e o autor não se responsabiliza por qualquer uso indevido, danos, perda de dados ou violação de termos de serviço resultantes do uso deste software.
 
 ---
 
 ## 👨‍💻 Autor
 
 Desenvolvido por **Guilherme (Guiboom)**
-
-
-
