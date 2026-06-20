@@ -56,6 +56,18 @@ python -m pip install -U yt-dlp
 
 ---
 
+### 3. Instalar o FFmpeg
+
+O FFmpeg é necessário para converter áudios para MP3 e juntar áudio e vídeo em um único arquivo MP4.
+
+Execute:
+
+```bash
+winget install Gyan.FFmpeg
+```
+
+---
+
 ## ▶️ Executando o Programa
 
 Entre na pasta do projeto e execute:
@@ -91,10 +103,13 @@ python main.py
 
 ## ⚠️ Observação
 
-O projeto foi testado no Windows 11 e funciona com apenas duas dependências instaladas:
+O projeto foi testado no Windows 11.
+
+Para funcionamento completo são necessárias as seguintes dependências:
 
 * Python
 * yt-dlp
+* FFmpeg
 
 ---
 
