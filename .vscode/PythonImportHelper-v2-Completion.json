@@ -1,0 +1,394 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "tkinter",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "ttk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "filedialog",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "ttk",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "filedialog",
+        "importPath": "tkinter",
+        "description": "tkinter",
+        "isExtraImport": true,
+        "detail": "tkinter",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "threading",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "threading",
+        "description": "threading",
+        "detail": "threading",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "get_ffmpeg_path",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_ffmpeg_path():\n    if getattr(sys, 'frozen', False):\n        return os.path.join(sys._MEIPASS, \"ffmpeg.exe\")\n    else:\n        return os.path.join(\"ffmpeg\", \"ffmpeg.exe\")\nffmpeg_path = get_ffmpeg_path()\n# ---------------- CONFIG ----------------\ndef salvar_config(config):\n    with open(\"config.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(config, f, indent=4)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "salvar_config",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def salvar_config(config):\n    with open(\"config.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(config, f, indent=4)\ndef carregar_config():\n    padrao = {\n        \"download_path\": \"Downloads\",\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"\n    }\n    if not os.path.exists(\"config.json\"):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "carregar_config",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def carregar_config():\n    padrao = {\n        \"download_path\": \"Downloads\",\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"\n    }\n    if not os.path.exists(\"config.json\"):\n        salvar_config(padrao)\n        return padrao\n    with open(\"config.json\", \"r\", encoding=\"utf-8\") as f:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "atualizar_qualidades",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\"320kbps (Alta)\", \"192kbps (Média)\", \"128kbps (Baixa)\"]\n        variavel_qualidade.set(\"320kbps (Alta)\")\n    else:\n        dropdown_qualidade[\"values\"] = [\"1440p\",\"1080p\", \"720p\", \"480p\", \"360p\"]\n        variavel_qualidade.set(\"1080p\")\ndef alterar_pasta():\n    pasta = filedialog.askdirectory()\n    if pasta:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "alterar_pasta",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def alterar_pasta():\n    pasta = filedialog.askdirectory()\n    if pasta:\n        config[\"download_path\"] = pasta\n        salvar_config(config)\n        label_caminho.config(text=pasta)\ndef abrir_pasta():\n    caminho_da_pasta = config.get(\"download_path\")\n    if caminho_da_pasta and os.path.exists(caminho_da_pasta):\n        os.startfile(caminho_da_pasta)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "abrir_pasta",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def abrir_pasta():\n    caminho_da_pasta = config.get(\"download_path\")\n    if caminho_da_pasta and os.path.exists(caminho_da_pasta):\n        os.startfile(caminho_da_pasta)\n    else:\n        print(\"Erro: Caminho da pasta não configurado ou inválido.\")\ndef baixar_video():\n    link = input_link.get().strip()\n    if not link:\n        status_label.config(text=\"❌ Link inválido\", fg=\"red\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "baixar_video",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def baixar_video():\n    link = input_link.get().strip()\n    if not link:\n        status_label.config(text=\"❌ Link inválido\", fg=\"red\")\n        return\n    pasta = config[\"download_path\"]\n    tipo = variavel_tipo.get()\n    qualidade = variavel_qualidade.get()\n    def processo():\n        try:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "ffmpeg_path",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "ffmpeg_path = get_ffmpeg_path()\n# ---------------- CONFIG ----------------\ndef salvar_config(config):\n    with open(\"config.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(config, f, indent=4)\ndef carregar_config():\n    padrao = {\n        \"download_path\": \"Downloads\",\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "config = carregar_config()\n# ---------------- UI ----------------\nroot = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x520\")\nroot.resizable(False, False)\n# ---------------- FUNÇÕES ----------------\ndef atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\"320kbps (Alta)\", \"192kbps (Média)\", \"128kbps (Baixa)\"]",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "root = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x520\")\nroot.resizable(False, False)\n# ---------------- FUNÇÕES ----------------\ndef atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\"320kbps (Alta)\", \"192kbps (Média)\", \"128kbps (Baixa)\"]\n        variavel_qualidade.set(\"320kbps (Alta)\")\n    else:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "input_link",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "input_link = tk.Entry(root, width=45)\ninput_link.pack(padx=20, pady=5)\ntk.Label(root, text=\"Tipo:\", font=(\"Arial\", 10, \"bold\")).pack(anchor=\"w\", padx=20)\nvariavel_tipo = tk.StringVar(value=config[\"default_type\"])\ndropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "variavel_tipo",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "variavel_tipo = tk.StringVar(value=config[\"default_type\"])\ndropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_tipo.pack(padx=20, pady=5)\ndropdown_tipo.bind(\"<<ComboboxSelected>>\", atualizar_qualidades)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "dropdown_tipo",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "dropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_tipo.pack(padx=20, pady=5)\ndropdown_tipo.bind(\"<<ComboboxSelected>>\", atualizar_qualidades)\ntk.Label(root, text=\"Qualidade:\", font=(\"Arial\", 10, \"bold\")).pack(anchor=\"w\", padx=20)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "variavel_qualidade",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "variavel_qualidade = tk.StringVar(value=config[\"default_quality\"])\ndropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\"1440p\", \"1080p\", \"720p\", \"480p\", \"360p\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_qualidade.pack(padx=20, pady=5)\nstatus_label = tk.Label(root, text=\"Pronto\", fg=\"gray\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "dropdown_qualidade",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "dropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\"1440p\", \"1080p\", \"720p\", \"480p\", \"360p\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_qualidade.pack(padx=20, pady=5)\nstatus_label = tk.Label(root, text=\"Pronto\", fg=\"gray\")\nstatus_label.pack(pady=8)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "status_label",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "status_label = tk.Label(root, text=\"Pronto\", fg=\"gray\")\nstatus_label.pack(pady=8)\ntk.Label(root, text=\"Local do download:\", font=(\"Arial\", 10, \"bold\")).pack(anchor=\"w\", padx=20)\nlabel_caminho = tk.Label(root, text=config[\"download_path\"], wraplength=350)\nlabel_caminho.pack(anchor=\"w\", padx=20)\ntk.Button(root, text=\"Alterar Pasta\", command=alterar_pasta).pack(pady=5)\ntk.Button(\n    root,\n    text=\"Pasta download\",\n    font=(\"Arial\", 11, \"bold\"),",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "label_caminho",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "label_caminho = tk.Label(root, text=config[\"download_path\"], wraplength=350)\nlabel_caminho.pack(anchor=\"w\", padx=20)\ntk.Button(root, text=\"Alterar Pasta\", command=alterar_pasta).pack(pady=5)\ntk.Button(\n    root,\n    text=\"Pasta download\",\n    font=(\"Arial\", 11, \"bold\"),\n    bg=\"#A5960D\",\n    fg=\"white\",\n    width=15,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_ffmpeg_path",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def get_ffmpeg_path():\n    if getattr(sys, 'frozen', False):\n        return os.path.join(sys._MEIPASS, \"ffmpeg.exe\")\n    else:\n        return os.path.join(\"ffmpeg\", \"ffmpeg.exe\")\nffmpeg_path = get_ffmpeg_path()\n# ---------------- CONFIG ----------------\ndef salvar_config(config):\n    with open(\"config.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(config, f, indent=4)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "salvar_config",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def salvar_config(config):\n    with open(\"config.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(config, f, indent=4)\ndef carregar_config():\n    padrao = {\n        \"download_path\": \"Downloads\",\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"\n    }\n    if not os.path.exists(\"config.json\"):",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "carregar_config",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def carregar_config():\n    padrao = {\n        \"download_path\": \"Downloads\",\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"\n    }\n    if not os.path.exists(\"config.json\"):\n        salvar_config(padrao)\n        return padrao\n    with open(\"config.json\", \"r\", encoding=\"utf-8\") as f:",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "atualizar_qualidades",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\"320kbps (Alta)\", \"192kbps (Média)\", \"128kbps (Baixa)\"]\n        variavel_qualidade.set(\"320kbps (Alta)\")\n    else:\n        dropdown_qualidade[\"values\"] = [\"1440p\",\"1080p\", \"720p\", \"480p\", \"360p\"]\n        variavel_qualidade.set(\"1080p\")\ndef alterar_pasta():\n    pasta = filedialog.askdirectory()\n    if pasta:",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "alterar_pasta",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def alterar_pasta():\n    pasta = filedialog.askdirectory()\n    if pasta:\n        config[\"download_path\"] = pasta\n        salvar_config(config)\n        label_caminho.config(text=pasta)\ndef abrir_pasta():\n    # Busca o caminho atualizado que está guardado na sua configuração\n    caminho_da_pasta = config.get(\"download_path\")\n    # Verifica se o caminho existe antes de tentar abrir",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "abrir_pasta",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def abrir_pasta():\n    # Busca o caminho atualizado que está guardado na sua configuração\n    caminho_da_pasta = config.get(\"download_path\")\n    # Verifica se o caminho existe antes de tentar abrir\n    if caminho_da_pasta and os.path.exists(caminho_da_pasta):\n        os.startfile(caminho_da_pasta)\n    else:\n        print(\"Erro: Caminho da pasta não configurado ou inválido.\")\ndef baixar_video():\n    link = input_link.get().strip()",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "baixar_video",
+        "kind": 2,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "def baixar_video():\n    link = input_link.get().strip()\n    if not link:\n        status_label.config(text=\"❌ Link inválido\", fg=\"red\")\n        return\n    pasta = config[\"download_path\"]\n    tipo = variavel_tipo.get()\n    qualidade = variavel_qualidade.get()\n    def processo():\n        try:",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "ffmpeg_path",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "ffmpeg_path = get_ffmpeg_path()\n# ---------------- CONFIG ----------------\ndef salvar_config(config):\n    with open(\"config.json\", \"w\", encoding=\"utf-8\") as f:\n        json.dump(config, f, indent=4)\ndef carregar_config():\n    padrao = {\n        \"download_path\": \"Downloads\",\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "config = carregar_config()\n# ---------------- UI ----------------\nroot = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x520\")\nroot.resizable(False, False)\n# ---------------- FUNÇÕES ----------------\ndef atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\"320kbps (Alta)\", \"192kbps (Média)\", \"128kbps (Baixa)\"]",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "root",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "root = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x520\")\nroot.resizable(False, False)\n# ---------------- FUNÇÕES ----------------\ndef atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\"320kbps (Alta)\", \"192kbps (Média)\", \"128kbps (Baixa)\"]\n        variavel_qualidade.set(\"320kbps (Alta)\")\n    else:",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "input_link",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "input_link = tk.Entry(root, width=45)\ninput_link.pack(padx=20, pady=5)\ntk.Label(root, text=\"Tipo:\", font=(\"Arial\", 10, \"bold\")).pack(anchor=\"w\", padx=20)\nvariavel_tipo = tk.StringVar(value=config[\"default_type\"])\ndropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "variavel_tipo",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "variavel_tipo = tk.StringVar(value=config[\"default_type\"])\ndropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_tipo.pack(padx=20, pady=5)\ndropdown_tipo.bind(\"<<ComboboxSelected>>\", atualizar_qualidades)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "dropdown_tipo",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "dropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_tipo.pack(padx=20, pady=5)\ndropdown_tipo.bind(\"<<ComboboxSelected>>\", atualizar_qualidades)\ntk.Label(root, text=\"Qualidade:\", font=(\"Arial\", 10, \"bold\")).pack(anchor=\"w\", padx=20)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "variavel_qualidade",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "variavel_qualidade = tk.StringVar(value=config[\"default_quality\"])\ndropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\"1440p\", \"1080p\", \"720p\", \"480p\", \"360p\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_qualidade.pack(padx=20, pady=5)\nstatus_label = tk.Label(root, text=\"Pronto\", fg=\"gray\")",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "dropdown_qualidade",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "dropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\"1440p\", \"1080p\", \"720p\", \"480p\", \"360p\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_qualidade.pack(padx=20, pady=5)\nstatus_label = tk.Label(root, text=\"Pronto\", fg=\"gray\")\nstatus_label.pack(pady=8)",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "status_label",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "status_label = tk.Label(root, text=\"Pronto\", fg=\"gray\")\nstatus_label.pack(pady=8)\ntk.Label(root, text=\"Local do download:\", font=(\"Arial\", 10, \"bold\")).pack(anchor=\"w\", padx=20)\nlabel_caminho = tk.Label(root, text=config[\"download_path\"], wraplength=350)\nlabel_caminho.pack(anchor=\"w\", padx=20)\ntk.Button(root, text=\"Alterar Pasta\", command=alterar_pasta).pack(pady=5)\ntk.Button(\n    root,\n    text=\"Pasta download\",\n    font=(\"Arial\", 11, \"bold\"),",
+        "detail": "test",
+        "documentation": {}
+    },
+    {
+        "label": "label_caminho",
+        "kind": 5,
+        "importPath": "test",
+        "description": "test",
+        "peekOfCode": "label_caminho = tk.Label(root, text=config[\"download_path\"], wraplength=350)\nlabel_caminho.pack(anchor=\"w\", padx=20)\ntk.Button(root, text=\"Alterar Pasta\", command=alterar_pasta).pack(pady=5)\ntk.Button(\n    root,\n    text=\"Pasta download\",\n    font=(\"Arial\", 11, \"bold\"),\n    bg=\"#A5960D\",\n    fg=\"white\",\n    width=15,",
+        "detail": "test",
+        "documentation": {}
+    }
+]
