@@ -11,8 +11,8 @@ echo ==========================================
 echo       PyMediaDownloader - Instalador
 echo ==========================================
 echo.
-echo Este instalador verificara:
-echo   - Python 3.10 ou superior
+echo Este instalador verificara e instalara:
+echo   - Python 3
 echo   - pip
 echo   - yt-dlp
 echo   - FFmpeg
@@ -51,17 +51,16 @@ if not defined PYTHON_CMD (
         echo ERRO: winget nao esta disponivel.
         echo Instale o Python manualmente:
         echo https://www.python.org/downloads/windows/
-        echo.
-        echo Durante a instalacao, marque Add Python to PATH.
         pause
         exit /b 1
     )
 
-    echo Instalando Python 3...
-    winget install --id Python.Python.3.12 --exact --scope user --accept-package-agreements --accept-source-agreements
+    echo Instalando Python 3.12...
+
+    winget install --id Python.Python.3.12 --exact --accept-package-agreements --accept-source-agreements
 
     echo.
-    echo Verificando a instalacao...
+    echo Verificando Python instalado...
 
     where py >nul 2>&1
     if not errorlevel 1 (
@@ -80,14 +79,13 @@ if not defined PYTHON_CMD (
     if not defined PYTHON_CMD (
         echo.
         echo ERRO: Python instalado, mas nao foi localizado.
-        echo Reinicie o terminal ou instale o Python manualmente.
-        echo https://www.python.org/downloads/windows/
+        echo Reinicie o terminal e execute novamente.
         pause
         exit /b 1
     )
 )
 
-echo Python localizado.
+echo Python encontrado:
 %PYTHON_CMD% --version
 
 echo.
@@ -96,8 +94,9 @@ echo [2/4] Verificando pip
 echo ==========================================
 
 %PYTHON_CMD% -m pip --version >nul 2>&1
+
 if errorlevel 1 (
-    echo Tentando instalar o pip...
+    echo Tentando configurar o pip...
     %PYTHON_CMD% -m ensurepip --upgrade
 
     if errorlevel 1 (
@@ -131,48 +130,125 @@ if errorlevel 1 (
 )
 
 %PYTHON_CMD% -m yt_dlp --version >nul 2>&1
+
 if errorlevel 1 (
     echo ERRO: O yt-dlp nao foi instalado corretamente.
     pause
     exit /b 1
 )
 
-echo yt-dlp instalado com sucesso.
+echo yt-dlp instalado com sucesso!
 
 echo.
 echo ==========================================
-echo [4/4] Verificando FFmpeg
+echo [4/4] Instalando e verificando FFmpeg
 echo ==========================================
 
+set "FFMPEG_OK="
+
 where ffmpeg >nul 2>&1
+if not errorlevel 1 (
+    ffmpeg -version >nul 2>&1
+    if not errorlevel 1 set "FFMPEG_OK=1"
+)
+
+if defined FFMPEG_OK (
+    echo FFmpeg ja esta instalado e funcionando.
+    goto iniciar
+)
+
+echo FFmpeg nao encontrado. Verificando winget...
+
+where winget >nul 2>&1
 if errorlevel 1 (
-    echo FFmpeg nao encontrado.
-
-    where winget >nul 2>&1
-    if errorlevel 1 (
-        echo.
-        echo AVISO: winget nao esta disponivel.
-        echo Instale o FFmpeg manualmente:
-        echo https://ffmpeg.org/download.html
-        goto iniciar
-    )
-
-    echo Tentando instalar FFmpeg...
-    winget install --id Gyan.FFmpeg --exact --scope user --accept-package-agreements --accept-source-agreements
-
     echo.
-    echo Verificando FFmpeg...
+    echo AVISO: winget nao esta disponivel.
+    goto ffmpeg_manual
+)
 
-    where ffmpeg >nul 2>&1
-    if errorlevel 1 (
-        echo AVISO: FFmpeg pode ter sido instalado, mas nao esta no PATH.
-        echo Reinicie o terminal e verifique novamente.
-    ) else (
-        echo FFmpeg instalado com sucesso.
+echo.
+echo Tentando instalar FFmpeg...
+echo.
+
+winget install --id Gyan.FFmpeg.Shared --exact --accept-package-agreements --accept-source-agreements
+
+echo.
+echo Verificando FFmpeg novamente...
+
+where ffmpeg >nul 2>&1
+if not errorlevel 1 (
+    ffmpeg -version >nul 2>&1
+    if not errorlevel 1 (
+        set "FFMPEG_OK=1"
+        goto ffmpeg_sucesso
     )
-) else (
-    echo FFmpeg ja esta instalado.
-    ffmpeg -version 2>nul | findstr /B /C:"ffmpeg version"
+)
+
+echo.
+echo FFmpeg ainda nao foi localizado no PATH.
+echo Tentando localizar a instalacao...
+
+set "FFMPEG_DIR=%LOCALAPPDATA%\Microsoft\WinGet\Links"
+
+if exist "%FFMPEG_DIR%\ffmpeg.exe" (
+    set "PATH=%FFMPEG_DIR%;%PATH%"
+)
+
+where ffmpeg >nul 2>&1
+if not errorlevel 1 (
+    ffmpeg -version >nul 2>&1
+    if not errorlevel 1 (
+        set "FFMPEG_OK=1"
+        goto ffmpeg_sucesso
+    )
+)
+
+echo.
+echo Tentando instalar a versao padrao do FFmpeg...
+
+winget install --id Gyan.FFmpeg --exact --accept-package-agreements --accept-source-agreements
+
+echo.
+echo Verificando instalacao...
+
+where ffmpeg >nul 2>&1
+if not errorlevel 1 (
+    ffmpeg -version >nul 2>&1
+    if not errorlevel 1 (
+        set "FFMPEG_OK=1"
+        goto ffmpeg_sucesso
+    )
+)
+
+goto ffmpeg_manual
+
+:ffmpeg_sucesso
+echo.
+echo FFmpeg instalado e funcionando!
+goto iniciar
+
+:ffmpeg_manual
+echo.
+echo ==========================================
+echo AVISO: FFmpeg nao foi localizado
+echo ==========================================
+echo.
+echo O programa pode funcionar sem FFmpeg,
+echo mas algumas conversoes e downloads podem falhar.
+echo.
+echo Download oficial:
+echo https://www.gyan.dev/ffmpeg/builds/
+echo.
+echo Se instalar manualmente, adicione a pasta bin
+echo do FFmpeg ao PATH do Windows.
+echo.
+
+choice /C SN /N /M "Deseja continuar mesmo sem FFmpeg? [S/N]: "
+if errorlevel 2 (
+    echo.
+    echo Instalacao interrompida pelo usuario.
+    pause
+    exit /b 1
 )
 
 :iniciar
@@ -184,7 +260,7 @@ echo.
 
 if not exist "%~dp0main.py" (
     echo AVISO: main.py nao foi encontrado nesta pasta.
-    echo As dependencias foram instaladas, mas o programa nao pode ser iniciado.
+    echo As dependencias foram instaladas.
     goto fim
 )
 
@@ -200,7 +276,6 @@ echo.
 if errorlevel 1 (
     echo.
     echo O programa foi encerrado com erro.
-    echo Verifique as mensagens exibidas acima.
 )
 
 :fim
