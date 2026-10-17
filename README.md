@@ -34,7 +34,29 @@ O projeto utiliza o poderoso `yt-dlp` no backend para realizar os downloads, ofe
 
 ---
 
-## 🚀 Instalação
+### 1. Instalação automática (Windows)
+
+Para facilitar a instalação, o projeto inclui o arquivo `instalar.bat`, que verifica e instala as dependências necessárias automaticamente.
+
+**Como utilizar:**
+
+1. Baixe ou clone o repositório.
+2. Entre na pasta do PyMediaDownloader.
+3. Execute o arquivo `instalar.bat`.
+4. Confirme a instalação quando solicitado.
+5. Aguarde a instalação das dependências.
+6. Ao finalizar, escolha se deseja iniciar o aplicativo.
+
+O instalador verifica e instala, quando necessário:
+
+* **Python 3:** ambiente de execução do programa.
+* **yt-dlp:** responsável pelos downloads de vídeos e áudios.
+* **FFmpeg:** necessário para conversões de áudio e combinação de vídeo e áudio.
+
+**Requisitos:** Windows 10 ou Windows 11 com o gerenciador de pacotes `winget` disponível.
+
+
+## 🚀 Instalação manual (Windows)
 
 ### 1. Instalar o Python
 
@@ -65,6 +87,52 @@ Execute:
 ```bash
 winget install Gyan.FFmpeg
 ```
+
+
+## 🚀 Instalação manual (Linux)
+
+### 1. Instalar o Python e o pip
+
+Em distribuições baseadas em Debian ou Ubuntu, abra o terminal e execute:
+
+```bash
+sudo apt update
+sudo apt install python3 python3-pip python3-tk python3-venv
+```
+
+### 2. Instalar o yt-dlp
+
+Recomenda-se criar um ambiente virtual para instalar as dependências do projeto sem modificar os pacotes Python do sistema.
+
+Entre na pasta do projeto e execute:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip yt-dlp
+```
+
+### 3. Instalar o FFmpeg
+
+O FFmpeg é necessário para converter áudios para MP3 e combinar áudio e vídeo em um único arquivo MP4.
+
+Execute:
+
+```bash
+sudo apt install ffmpeg
+```
+
+### 4. Executar o programa
+
+Com o ambiente virtual ativado, execute:
+
+```bash
+python main.py
+```
+
+**Observação:** os comandos de instalação de pacotes apresentados acima são destinados a distribuições baseadas em Debian ou Ubuntu, como Linux Mint. Outras distribuições podem utilizar gerenciadores de pacotes diferentes.
+
+
 
 ---
 

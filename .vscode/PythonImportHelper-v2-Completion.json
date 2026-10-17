@@ -36,6 +36,15 @@
         "documentation": {}
     },
     {
+        "label": "queue",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "queue",
+        "description": "queue",
+        "detail": "queue",
+        "documentation": {}
+    },
+    {
         "label": "threading",
         "kind": 6,
         "isExtraImport": true,
@@ -107,7 +116,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)\n    return os.path.dirname(os.path.abspath(__file__))\ndef get_ffmpeg_path():\n    # FFmpeg incluído no executável\n    if getattr(sys, \"frozen\", False):\n        caminho = os.path.join(sys._MEIPASS, \"ffmpeg.exe\")\n        if os.path.isfile(caminho):\n            return caminho",
+        "peekOfCode": "def get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)\n    return os.path.dirname(os.path.abspath(__file__))\ndef get_ffmpeg_path():\n    if getattr(sys, \"frozen\", False):\n        caminho = os.path.join(sys._MEIPASS, \"ffmpeg.exe\")\n        if os.path.isfile(caminho):\n            return caminho\n    caminho_local = os.path.join(",
         "detail": "main",
         "documentation": {}
     },
@@ -116,7 +125,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def get_ffmpeg_path():\n    # FFmpeg incluído no executável\n    if getattr(sys, \"frozen\", False):\n        caminho = os.path.join(sys._MEIPASS, \"ffmpeg.exe\")\n        if os.path.isfile(caminho):\n            return caminho\n    # FFmpeg na pasta do projeto\n    caminho_local = os.path.join(\n        get_base_path(),\n        \"ffmpeg\",",
+        "peekOfCode": "def get_ffmpeg_path():\n    if getattr(sys, \"frozen\", False):\n        caminho = os.path.join(sys._MEIPASS, \"ffmpeg.exe\")\n        if os.path.isfile(caminho):\n            return caminho\n    caminho_local = os.path.join(\n        get_base_path(),\n        \"ffmpeg\",\n        \"ffmpeg.exe\"\n    )",
         "detail": "main",
         "documentation": {}
     },
@@ -125,16 +134,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def localizar_ytdlp():\n    # Procura o executável yt-dlp no PATH\n    caminho = shutil.which(\"yt-dlp\")\n    if caminho:\n        return [caminho], False\n    # Procura yt-dlp.exe ao lado do programa\n    caminho_local = os.path.join(\n        get_base_path(),\n        \"yt-dlp.exe\"\n    )",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "atualizar_ytdlp",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def atualizar_ytdlp():\n    if getattr(sys, \"frozen\", False):\n        return False, (\n            \"A atualização automática não está disponível \"\n            \"nesta versão empacotada do programa.\"\n        )\n    try:\n        resultado = subprocess.run(\n            [\n                sys.executable,",
+        "peekOfCode": "def localizar_ytdlp():\n    caminho = shutil.which(\"yt-dlp\")\n    if caminho:\n        return [caminho]\n    caminho_local = os.path.join(\n        get_base_path(),\n        \"yt-dlp.exe\"\n    )\n    if os.path.isfile(caminho_local):\n        return [caminho_local]",
         "detail": "main",
         "documentation": {}
     },
@@ -143,7 +143,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def salvar_config(config):\n    caminho = os.path.join(get_base_path(), \"config.json\")\n    try:\n        with open(caminho, \"w\", encoding=\"utf-8\") as arquivo:\n            json.dump(config, arquivo, indent=4)\n    except Exception as erro:\n        print(\"Erro ao salvar configuração:\", erro)\ndef carregar_config():\n    padrao = {\n        \"download_path\": os.path.join(",
+        "peekOfCode": "def salvar_config(config):\n    caminho = os.path.join(\n        get_base_path(),\n        \"config.json\"\n    )\n    try:\n        with open(caminho, \"w\", encoding=\"utf-8\") as arquivo:\n            json.dump(config, arquivo, indent=4)\n    except Exception as erro:\n        print(\"Erro ao salvar configuração:\", erro)",
         "detail": "main",
         "documentation": {}
     },
@@ -152,34 +152,34 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def carregar_config():\n    padrao = {\n        \"download_path\": os.path.join(\n            os.path.expanduser(\"~\"),\n            \"Downloads\"\n        ),\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p (Full HD)\"\n    }\n    caminho = os.path.join(get_base_path(), \"config.json\")",
+        "peekOfCode": "def carregar_config():\n    padrao = {\n        \"download_path\": os.path.join(\n            os.path.expanduser(\"~\"),\n            \"Downloads\"\n        ),\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p (Full HD)\"\n    }\n    caminho = os.path.join(",
         "detail": "main",
         "documentation": {}
     },
     {
-        "label": "atualizar_status",
+        "label": "atualizar_status_geral",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def atualizar_status(texto, cor=\"blue\"):\n    def atualizar():\n        status_label.config(\n            text=texto,\n            fg=cor,\n            wraplength=450\n        )\n    root.after(0, atualizar)\ndef mostrar_erro(titulo, mensagem):\n    root.after(",
+        "peekOfCode": "def atualizar_status_geral(texto, cor=\"blue\"):\n    root.after(\n        0,\n        lambda: status_label.config(\n            text=texto,\n            fg=cor\n        )\n    )\ndef atualizar_item(id_download, **alteracoes):\n    \"\"\"",
         "detail": "main",
         "documentation": {}
     },
     {
-        "label": "mostrar_erro",
+        "label": "atualizar_item",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def mostrar_erro(titulo, mensagem):\n    root.after(\n        0,\n        lambda: messagebox.showerror(titulo, mensagem)\n    )\ndef perguntar_atualizacao():\n    \"\"\"\n    Exibe a pergunta na thread principal e devolve a resposta\n    à thread que está executando o download.\n    \"\"\"",
+        "peekOfCode": "def atualizar_item(id_download, **alteracoes):\n    \"\"\"\n    Atualiza os dados de um download e sua linha na tabela.\n    \"\"\"\n    def atualizar():\n        with lock_downloads:\n            if id_download not in downloads:\n                return\n            downloads[id_download].update(alteracoes)\n            dados = downloads[id_download].copy()",
         "detail": "main",
         "documentation": {}
     },
     {
-        "label": "perguntar_atualizacao",
+        "label": "atualizar_contador",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def perguntar_atualizacao():\n    \"\"\"\n    Exibe a pergunta na thread principal e devolve a resposta\n    à thread que está executando o download.\n    \"\"\"\n    evento = threading.Event()\n    resposta = {\"atualizar\": False}\n    def perguntar():\n        try:\n            resposta[\"atualizar\"] = messagebox.askyesno(",
+        "peekOfCode": "def atualizar_contador():\n    with lock_downloads:\n        aguardando = sum(\n            1 for item in downloads.values()\n            if item[\"status\"] == \"Aguardando\"\n        )\n        baixando = sum(\n            1 for item in downloads.values()\n            if item[\"status\"] == \"Baixando\"\n        )",
         "detail": "main",
         "documentation": {}
     },
@@ -211,20 +211,155 @@
         "documentation": {}
     },
     {
-        "label": "baixar_video",
+        "label": "abrir_lista_downloads",
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def baixar_video():\n    global download_em_andamento\n    if download_em_andamento:\n        return\n    link = input_link.get().strip()\n    if not link:\n        status_label.config(\n            text=\"Informe um link válido.\",\n            fg=\"red\"\n        )",
+        "peekOfCode": "def abrir_lista_downloads():\n    global janela_fila, tabela_downloads\n    if janela_fila is not None:\n        try:\n            if janela_fila.winfo_exists():\n                janela_fila.lift()\n                janela_fila.focus_force()\n                return\n        except tk.TclError:\n            pass",
         "detail": "main",
         "documentation": {}
     },
     {
-        "label": "download_em_andamento",
+        "label": "fechar_lista_downloads",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def fechar_lista_downloads():\n    global janela_fila, tabela_downloads\n    if janela_fila is not None:\n        try:\n            janela_fila.destroy()\n        except tk.TclError:\n            pass\n    janela_fila = None\n    tabela_downloads = None\ndef remover_downloads_selecionados():",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "remover_downloads_selecionados",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def remover_downloads_selecionados():\n    if tabela_downloads is None:\n        return\n    selecionados = tabela_downloads.selection()\n    if not selecionados:\n        return\n    removidos = 0\n    for item_id in selecionados:\n        id_download = int(item_id)\n        with lock_downloads:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "limpar_concluidos",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def limpar_concluidos():\n    if tabela_downloads is None:\n        return\n    with lock_downloads:\n        ids = [\n            id_download\n            for id_download, dados in downloads.items()\n            if dados[\"status\"] in (\n                \"Concluído\",\n                \"Erro\",",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "montar_comando",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def montar_comando(download):\n    comando_base = localizar_ytdlp()\n    if not comando_base:\n        raise FileNotFoundError(\n            \"O yt-dlp não foi encontrado.\"\n        )\n    ffmpeg_path = get_ffmpeg_path()\n    if not ffmpeg_path:\n        raise FileNotFoundError(\n            \"O FFmpeg não foi encontrado.\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "executar_download",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def executar_download(id_download, download):\n    try:\n        atualizar_item(\n            id_download,\n            status=\"Baixando\"\n        )\n        atualizar_contador()\n        os.makedirs(\n            download[\"pasta\"],\n            exist_ok=True",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "trabalhador",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def trabalhador():\n    while True:\n        tarefa = fila_downloads.get()\n        try:\n            if tarefa is None:\n                return\n            id_download, download = tarefa\n            with lock_downloads:\n                dados = downloads.get(id_download)\n                if (",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "iniciar_trabalhadores",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def iniciar_trabalhadores():\n    for _ in range(MAX_DOWNLOADS_SIMULTANEOS):\n        thread = threading.Thread(\n            target=trabalhador,\n            daemon=True\n        )\n        thread.start()\n# =====================================================\n# ADICIONAR DOWNLOAD À FILA\n# =====================================================",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "adicionar_download",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def adicionar_download():\n    global contador_downloads\n    link = input_link.get().strip()\n    if not link:\n        status_label.config(\n            text=\"Informe um link válido.\",\n            fg=\"red\"\n        )\n        return\n    tipo = variavel_tipo.get()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_DOWNLOADS_SIMULTANEOS",
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "download_em_andamento = False\n# ---------------- CAMINHOS ----------------\ndef get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)\n    return os.path.dirname(os.path.abspath(__file__))\ndef get_ffmpeg_path():\n    # FFmpeg incluído no executável\n    if getattr(sys, \"frozen\", False):\n        caminho = os.path.join(sys._MEIPASS, \"ffmpeg.exe\")",
+        "peekOfCode": "MAX_DOWNLOADS_SIMULTANEOS = 3\nfila_downloads = queue.Queue()\ndownloads = {}\ncontador_downloads = 0\nlock_downloads = threading.Lock()\nlock_atualizacao = threading.Lock()\njanela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "fila_downloads",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "fila_downloads = queue.Queue()\ndownloads = {}\ncontador_downloads = 0\nlock_downloads = threading.Lock()\nlock_atualizacao = threading.Lock()\njanela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "downloads",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "downloads = {}\ncontador_downloads = 0\nlock_downloads = threading.Lock()\nlock_atualizacao = threading.Lock()\njanela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================\ndef get_base_path():",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "contador_downloads",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "contador_downloads = 0\nlock_downloads = threading.Lock()\nlock_atualizacao = threading.Lock()\njanela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================\ndef get_base_path():\n    if getattr(sys, \"frozen\", False):",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "lock_downloads",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "lock_downloads = threading.Lock()\nlock_atualizacao = threading.Lock()\njanela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================\ndef get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "lock_atualizacao",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "lock_atualizacao = threading.Lock()\njanela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================\ndef get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)\n    return os.path.dirname(os.path.abspath(__file__))",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "janela_fila",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "janela_fila = None\ntabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================\ndef get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)\n    return os.path.dirname(os.path.abspath(__file__))\ndef get_ffmpeg_path():",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "tabela_downloads",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "tabela_downloads = None\n# =====================================================\n# CAMINHOS\n# =====================================================\ndef get_base_path():\n    if getattr(sys, \"frozen\", False):\n        return os.path.dirname(sys.executable)\n    return os.path.dirname(os.path.abspath(__file__))\ndef get_ffmpeg_path():\n    if getattr(sys, \"frozen\", False):",
         "detail": "main",
         "documentation": {}
     },
@@ -233,7 +368,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "config = carregar_config()\n# ---------------- INTERFACE ----------------\nroot = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x520\")\nroot.resizable(False, False)\n# ---------------- FUNÇÕES AUXILIARES ----------------\ndef atualizar_status(texto, cor=\"blue\"):\n    def atualizar():\n        status_label.config(",
+        "peekOfCode": "config = carregar_config()\n# =====================================================\n# INTERFACE PRINCIPAL\n# =====================================================\nroot = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x570\")\nroot.resizable(False, False)\n# =====================================================\n# ATUALIZAÇÃO DA INTERFACE",
         "detail": "main",
         "documentation": {}
     },
@@ -242,7 +377,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "root = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x520\")\nroot.resizable(False, False)\n# ---------------- FUNÇÕES AUXILIARES ----------------\ndef atualizar_status(texto, cor=\"blue\"):\n    def atualizar():\n        status_label.config(\n            text=texto,\n            fg=cor,",
+        "peekOfCode": "root = tk.Tk()\nroot.title(\"PyMediaDownloader\")\nroot.geometry(\"500x570\")\nroot.resizable(False, False)\n# =====================================================\n# ATUALIZAÇÃO DA INTERFACE\n# =====================================================\ndef atualizar_status_geral(texto, cor=\"blue\"):\n    root.after(\n        0,",
         "detail": "main",
         "documentation": {}
     },
@@ -251,7 +386,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "input_link = tk.Entry(root, width=45)\ninput_link.pack(padx=20, pady=5)\ntk.Label(\n    root,\n    text=\"Tipo:\",\n    font=(\"Arial\", 10, \"bold\")\n).pack(anchor=\"w\", padx=20)\nvariavel_tipo = tk.StringVar(\n    value=config[\"default_type\"]\n)",
+        "peekOfCode": "input_link = tk.Entry(\n    root,\n    width=45\n)\ninput_link.pack(\n    padx=20,\n    pady=5\n)\ntk.Label(\n    root,",
         "detail": "main",
         "documentation": {}
     },
@@ -260,7 +395,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "variavel_tipo = tk.StringVar(\n    value=config[\"default_type\"]\n)\ndropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42\n)",
+        "peekOfCode": "variavel_tipo = tk.StringVar(\n    value=config[\"default_type\"]\n)\ndropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\n        \"MP4 (VÍDEO)\",\n        \"MP3 (ÁUDIO)\"\n    ],",
         "detail": "main",
         "documentation": {}
     },
@@ -269,7 +404,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "dropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\"MP4 (VÍDEO)\", \"MP3 (ÁUDIO)\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_tipo.pack(padx=20, pady=5)\ndropdown_tipo.bind(\n    \"<<ComboboxSelected>>\",",
+        "peekOfCode": "dropdown_tipo = ttk.Combobox(\n    root,\n    textvariable=variavel_tipo,\n    values=[\n        \"MP4 (VÍDEO)\",\n        \"MP3 (ÁUDIO)\"\n    ],\n    state=\"readonly\",\n    width=42\n)",
         "detail": "main",
         "documentation": {}
     },
@@ -305,16 +440,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "label_caminho = tk.Label(\n    root,\n    text=config[\"download_path\"],\n    wraplength=350\n)\nlabel_caminho.pack(anchor=\"w\", padx=20)\ntk.Button(\n    root,\n    text=\"Alterar Pasta\",\n    command=alterar_pasta",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "botao_baixar",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "botao_baixar = tk.Button(\n    root,\n    text=\"Baixar\",\n    font=(\"Arial\", 11, \"bold\"),\n    bg=\"#4CAF50\",\n    fg=\"white\",\n    width=15,\n    command=baixar_video\n)\nbotao_baixar.pack(pady=12)",
+        "peekOfCode": "label_caminho = tk.Label(\n    root,\n    text=config[\"download_path\"],\n    wraplength=430\n)\nlabel_caminho.pack(\n    anchor=\"w\",\n    padx=20\n)\ntk.Button(",
         "detail": "main",
         "documentation": {}
     },
