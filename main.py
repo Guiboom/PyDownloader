@@ -132,7 +132,7 @@ def carregar_config():
             "Downloads"
         ),
         "default_type": "MP4 (VÍDEO)",
-        "default_quality": "1080p"
+        "default_quality": "1080p (Full HD)"
     }
 
     caminho = os.path.join(get_base_path(), "config.json")
@@ -217,23 +217,28 @@ def perguntar_atualizacao():
 def atualizar_qualidades(event=None):
     if variavel_tipo.get() == "MP3 (ÁUDIO)":
         dropdown_qualidade["values"] = [
-            "320kbps (Alta)",
-            "192kbps (Média)",
-            "128kbps (Baixa)"
+            "48kbps (Baixa)",
+            "128kbps (Normal)",
+            "192kbps (Alta)",
+            "256kbps (Premium)"
         ]
 
-        variavel_qualidade.set("320kbps (Alta)")
+        variavel_qualidade.set("128kbps (Normal)")
 
     else:
         dropdown_qualidade["values"] = [
-            "1440p",
-            "1080p",
-            "720p",
-            "480p",
-            "360p"
+            "4320p (8K)",
+            "2160p (4K)",
+            "1440p (2K)",
+            "1080p (Full HD)",
+            "720p (HD)",
+            "480p (SD)",
+            "360p (SD)",
+            "240p (SD)",
+            "144p"
         ]
 
-        variavel_qualidade.set("1080p")
+        variavel_qualidade.set("1080p (Full HD)")
 
 
 # ---------------- PASTAS ----------------
@@ -298,9 +303,10 @@ def baixar_video():
     def montar_comando(comando_base, ffmpeg_path):
         if tipo == "MP3 (ÁUDIO)":
             mapa_audio = {
-                "320kbps (Alta)": ("320K", "320kbps"),
-                "192kbps (Média)": ("192K", "192kbps"),
-                "128kbps (Baixa)": ("128K", "128kbps")
+                "48kbps (Baixa)": ("48K", "48kbps"),
+                "128kbps (Normal)": ("128K", "128kbps"),
+                "192kbps (Alta)": ("192K", "192kbps"),
+                "256kbps (Premium)": ("256K", "256kbps")
             }
 
             bitrate, tag = mapa_audio[qualidade]
@@ -317,7 +323,19 @@ def baixar_video():
             ]
 
         else:
-            altura = qualidade.replace("p", "")
+            mapa_video = {
+                "4320p (8K)": 4320,
+                "2160p (4K)": 2160,
+                "1440p (2K)": 1440,
+                "1080p (Full HD)": 1080,
+                "720p (HD)": 720,
+                "480p (SD)": 480,
+                "360p (SD)": 360,
+                "240p (SD)": 240,
+                "144p": 144
+            }
+
+            altura = mapa_video[qualidade]
             tag = f"{altura}p"
 
             output = os.path.join(
@@ -581,7 +599,17 @@ variavel_qualidade = tk.StringVar(
 dropdown_qualidade = ttk.Combobox(
     root,
     textvariable=variavel_qualidade,
-    values=["1440p", "1080p", "720p", "480p", "360p"],
+    values=[
+        "4320p (8K)",
+        "2160p (4K)",
+        "1440p (2K)",
+        "1080p (Full HD)",
+        "720p (HD)",
+        "480p (SD)",
+        "360p (SD)",
+        "240p (SD)",
+        "144p"
+    ],
     state="readonly",
     width=42
 )

@@ -152,7 +152,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def carregar_config():\n    padrao = {\n        \"download_path\": os.path.join(\n            os.path.expanduser(\"~\"),\n            \"Downloads\"\n        ),\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p\"\n    }\n    caminho = os.path.join(get_base_path(), \"config.json\")",
+        "peekOfCode": "def carregar_config():\n    padrao = {\n        \"download_path\": os.path.join(\n            os.path.expanduser(\"~\"),\n            \"Downloads\"\n        ),\n        \"default_type\": \"MP4 (VÍDEO)\",\n        \"default_quality\": \"1080p (Full HD)\"\n    }\n    caminho = os.path.join(get_base_path(), \"config.json\")",
         "detail": "main",
         "documentation": {}
     },
@@ -188,7 +188,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\n            \"320kbps (Alta)\",\n            \"192kbps (Média)\",\n            \"128kbps (Baixa)\"\n        ]\n        variavel_qualidade.set(\"320kbps (Alta)\")\n    else:\n        dropdown_qualidade[\"values\"] = [",
+        "peekOfCode": "def atualizar_qualidades(event=None):\n    if variavel_tipo.get() == \"MP3 (ÁUDIO)\":\n        dropdown_qualidade[\"values\"] = [\n            \"48kbps (Baixa)\",\n            \"128kbps (Normal)\",\n            \"192kbps (Alta)\",\n            \"256kbps (Premium)\"\n        ]\n        variavel_qualidade.set(\"128kbps (Normal)\")\n    else:",
         "detail": "main",
         "documentation": {}
     },
@@ -278,7 +278,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "variavel_qualidade = tk.StringVar(\n    value=config[\"default_quality\"]\n)\ndropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\"1440p\", \"1080p\", \"720p\", \"480p\", \"360p\"],\n    state=\"readonly\",\n    width=42\n)",
+        "peekOfCode": "variavel_qualidade = tk.StringVar(\n    value=config[\"default_quality\"]\n)\ndropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\n        \"4320p (8K)\",\n        \"2160p (4K)\",\n        \"1440p (2K)\",",
         "detail": "main",
         "documentation": {}
     },
@@ -287,7 +287,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "dropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\"1440p\", \"1080p\", \"720p\", \"480p\", \"360p\"],\n    state=\"readonly\",\n    width=42\n)\ndropdown_qualidade.pack(padx=20, pady=5)\nstatus_label = tk.Label(\n    root,",
+        "peekOfCode": "dropdown_qualidade = ttk.Combobox(\n    root,\n    textvariable=variavel_qualidade,\n    values=[\n        \"4320p (8K)\",\n        \"2160p (4K)\",\n        \"1440p (2K)\",\n        \"1080p (Full HD)\",\n        \"720p (HD)\",\n        \"480p (SD)\",",
         "detail": "main",
         "documentation": {}
     },
