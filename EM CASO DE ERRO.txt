@@ -1,0 +1,4 @@
+Atualize o  yt-dlp
+yt-dlp -U
+ou
+yt-dlp -U --rm-cache-dir --cookies-from-browser chrome -4 --impersonate chrome "YOUR_VIDEO_URL"
